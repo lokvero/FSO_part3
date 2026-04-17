@@ -23,6 +23,26 @@ let persons = [
       "number": "39-23-6423122"
   }
 ]
+app.get('/info', (request, response) => {
+    const now = new Date().toString();
+    const info = String(`<p>Phonebook has info for ${persons.length}</p>`
+        +`<p>`+now+`</p>`)
+    const html = 
+    `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>courseinfo</title>
+  </head>
+  <body>
+    <div id="root"></div>`
+    +info+
+    `</body>
+</html>`
+    response.send(html)
+})
 
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
@@ -31,6 +51,8 @@ app.get('/', (request, response) => {
 app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
+
+app.get('/favicon.svg', (req, res) => res.status(204).end()); // Error GET favicon.svg not found
 
 const PORT = 3001
 app.listen(PORT, () => {
