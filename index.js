@@ -66,6 +66,13 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/favicon.svg', (req, res) => res.status(204).end()); // Error GET favicon.svg not found
 
+app.delete('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id)
+  persons = persons.filter(person => person.id !== id)
+
+  response.status(204).end()
+})
+
 const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
