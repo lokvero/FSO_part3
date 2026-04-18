@@ -1,6 +1,10 @@
-import express from 'express'
+import express, { json } from 'express'
+import morgan from 'morgan'
+
 const app = express()
-app.use(express.json())
+
+app.use(json())
+app.use(morgan('tiny'))
 
 let persons = [
   { 
@@ -25,24 +29,21 @@ let persons = [
   }
 ]
 app.get('/info', (request, response) => {
-    const now = new Date().toString();
-    const info = String(`<p>Phonebook has info for ${persons.length}</p>`
-        +`<p>`+now+`</p>`)
-    const html = 
-    `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>courseinfo</title>
-  </head>
-  <body>
-    <div id="root"></div>`
-    +info+
-    `</body>
-</html>`
-    response.send(html)
+    response.send(
+      `<!doctype html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>courseinfo</title>
+        </head>
+        <body>
+          <p>Phonebook has info for ${persons.length}</p>
+          <p>${new Date().toString()}</p>
+        </body>
+      </html>`
+    )
 })
 
 app.get('/api/persons/:id', (request, response) => {
@@ -89,7 +90,7 @@ app.post('/api/persons',(request, response)=>{
         "number":body.number
     }
     persons=[...persons, person]
-    console.log(persons)
+    // console.log(persons)
 
     return response.status(201).json(person)
 })
