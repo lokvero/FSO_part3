@@ -2,5 +2,4 @@
 
 Exercises part 3 submissions for the [Full Stack Open](https://fullstackopen.com/) course by the University of Helsinki.
 
-Frontend: https://frontend-7ye5.onrender.com/
-Backend: https://fso-part3-backend-fies.onrender.com/
+fullstack: https://fso-part3-backend-fies.onrender.com/
