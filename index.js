@@ -2,9 +2,12 @@ import express, { json } from 'express'
 import morgan from 'morgan'
 
 const app = express()
+morgan.token('body', (req) => {
+  if(req.body) return JSON.stringify(req.body)
+})
 
 app.use(json())
-app.use(morgan('tiny'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 let persons = [
   { 
@@ -28,9 +31,11 @@ let persons = [
       "number": "39-23-6423122"
   }
 ]
+
 app.get('/info', (request, response) => {
     response.send(
-      `<!doctype html>
+      `
+      <!doctype html>
       <html lang="en">
         <head>
           <meta charset="UTF-8" />
@@ -42,7 +47,8 @@ app.get('/info', (request, response) => {
           <p>Phonebook has info for ${persons.length}</p>
           <p>${new Date().toString()}</p>
         </body>
-      </html>`
+      </html>
+      `
     )
 })
 
@@ -55,7 +61,6 @@ app.get('/api/persons/:id', (request, response) => {
   } else {
     response.status(404).end()
   }
-  response.json(person)
 })
 
 app.get('/', (request, response) => {
