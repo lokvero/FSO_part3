@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/lokvero/FSO_part3#readme",
   "dependencies": {
+    "@sentry/node": "^10.49.0",
     "axios": "^1.15.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
