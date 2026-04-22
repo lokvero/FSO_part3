@@ -17,15 +17,27 @@ connect(url)
   })
 
 const personSchema = new Schema({
-  name: { 
+  name: {
     type: String,
-    required: true,  
+    required: true,
     unique: true,
-    minLength: 3,
+    validate: {
+      validator: function(v) {
+        return v.length >= 3;
+      },
+      message: props => `"${props.value}" have ${props.value.length} characters, minimum 3`
+    }
   },
   number: {
     type: String,
-    required: true,
+    validate: {
+      validator: function(v) {
+        return /\d{3}-\d{5}/.test(v);
+      },
+      message: props => `${props.value} is not a valid phone number!`
+    },
+    required: [true, `Number is empty`],
+    minLength: [8, `Minimum length is 8 digits`],
   },
 })
 
