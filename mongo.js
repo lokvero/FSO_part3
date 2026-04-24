@@ -24,11 +24,11 @@ const Person = model('Person', personSchema)
 if (process.argv.length === 3){
     Person.find({}).then(result => {
         console.log('phonebook:')
- 
+
         result.forEach(person => {
             console.log(`${person.name}  ${person.number}`)
         })
- 
+
         if(!result.length) console.log('Collection is empty')
         connection.close()
     })
